@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ngmaterialModule } from './ngmaterial.module';
+import { AppComponent } from './app.component'; 
+import { CdkModule } from './cdk/cdk.module';
+import { MaterialModule } from './material/material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { ngmaterialModule } from './ngmaterial.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ngmaterialModule
+    FormsModule, 
+    MaterialModule, 
+    CdkModule
   ],
   providers: [],
   bootstrap: [AppComponent]
