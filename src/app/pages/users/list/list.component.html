@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-4 offset-md-1">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}" placeholder="Search by name..." (keyup)="searchByName()">
+        <div class="input-group-append">
+          <span class="input-group-text"><mat-icon class="icon">search</mat-icon></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 offset-md-1">
+        <button class="btn btn-outline-primary" (click)="createNewUser()">Add user</button>
+    </div>
+  </div>
+  
+  <div class="list-group users-list">
+    <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="row">
+        <div class="col col-md-8 text-col">
+          <h5 class="mb-1">{{item.payload.doc.data().name}} {{item.payload.doc.data().surname}}</h5>
+          <small>Age: {{item.payload.doc.data().age}}</small>
+        </div>
+        <div class="col col-md-2 actions-col">
+          <button class="btn btn-outline-primary action" (click)="editUser(item)" type="button" title="edit">
+            <mat-icon class="icon">edit</mat-icon>
+          </button>
+          <button class="btn btn-outline-primary action" (click)="deleteUser(item)"  type="button" title="delete">
+            <mat-icon class="icon">delete</mat-icon>
+          </button>
+          <button class="btn btn-outline-primary action"  type="button" title="view order details">
+            <mat-icon class="icon">remove_red_eye</mat-icon>
+          </button>
+          <button class="btn btn-outline-primary action"  type="button" title="order">
+            <mat-icon class="icon">add_shopping_cart</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
