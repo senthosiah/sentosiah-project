@@ -51,4 +51,7 @@ export class FirebaseService {
       location: value.location,
     });
   }
+  deleteOrder(orderId: string, id): Promise<void> {
+    return this.db.collection('users').doc(id).collection('orders').doc(orderId).delete();
+  }
 }

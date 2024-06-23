@@ -1,3 +1,4 @@
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -20,14 +21,16 @@ export class OrderDetailsComponent implements OnInit {
     'customizationControl', 
     'customizationUnitControl', 
     'customizationUnitPriceControl', 
-    'priceControl'
+    'priceControl',
+    'actions'
   ];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private firestore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
@@ -74,4 +77,35 @@ export class OrderDetailsComponent implements OnInit {
         });
     }
   }
+  editOrder(orderId: string): void {
+    this.router.navigate(['/product-order', this.id, orderId]);
+  }
+  
+
+  deleteOrder(orderId: string): void {
+    // Implement deletion logic here
+    console.log('Deleting order with ID:', orderId);
+    // Example: Call a service method to delete order
+    this.firebaseService.deleteOrder(orderId, this.id).then(() => {
+      console.log('Order deleted successfully.'); 
+      // Example: Refresh order list after deletion
+      this.loadUserOrders();
+    })
+    .catch(error => {
+      console.error('Error deleting order:', error);
+      // Handle error
+    });
+  }
+  // deleteOrder(orderId: string): void {
+  //   this.firestore.collection('users').doc(this.id).collection('orders').doc(orderId).delete()
+  //     .then(() => {
+  //       console.log('Order deleted successfully.');
+  //       // Optionally, update UI or perform other actions after deletion
+  //     })
+  //     .catch(error => {
+  //       console.error('Error deleting order:', error);
+  //       // Handle error
+  //     });
+  // }
+  
 }

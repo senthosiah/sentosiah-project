@@ -1,31 +1,46 @@
 <form (ngSubmit)="submitOrder()" [formGroup]="orderForm" class="container se-height-100 p-lg-4">
-    <!-- Product Selection with MatAutocomplete -->
-    <mat-form-field>
-      <input type="text" placeholder="Product" matInput [matAutocomplete]="auto" formControlName="productControl" required="">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
-        <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
-          {{ product.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  
-    <!-- Customization Section -->
-    <mat-form-field>
-      <input type="text" placeholder="Customization" matInput formControlName="customizationControl" required="">
-    </mat-form-field>
-    <mat-form-field>
-        <input type="number" placeholder="Customization Quantity" matInput formControlName="customizationUnitControl" required="">
+  <div formArrayName="entries">
+    <div *ngFor="let entryGroup of orderForm.get('entries')['controls']; let i = index" [formGroupName]="i" class="entry-group">
+      <!-- Product Selection with MatAutocomplete -->
+      <mat-form-field>
+        <!-- [matAutocomplete]="auto[i]"  -->
+        <!-- #auto[i]="matAutocomplete" -->
+        <input type="text" placeholder="Product" matInput 
+        formControlName="productControl" required>
+        <mat-autocomplete 
+         [displayWith]="displayProduct">
+          <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+            {{ product.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Customization Section -->
+      <mat-form-field>
+        <input type="text" placeholder="Customization" matInput formControlName="customizationControl" required>
       </mat-form-field>
       <mat-form-field>
-        <input type="number" placeholder="Customization Unit Price" matInput formControlName="customizationUnitPriceControl" required="">
+        <input type="number" placeholder="Customization Quantity" matInput formControlName="customizationUnitControl" required>
       </mat-form-field>
-  
-    <!-- Price Calculation -->
-    <mat-form-field>
-      <input type="number" placeholder="Total Price" matInput formControlName="priceControl" [disabled]=true>
-    </mat-form-field>
-  
-    <!-- Submit Button -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="!orderForm.valid">Add Order</button>
-  </form>
-  
+      <mat-form-field>
+        <input type="number" placeholder="Customization Unit Price" matInput formControlName="customizationUnitPriceControl" required>
+      </mat-form-field>
+
+      <!-- Price Calculation -->
+      <mat-form-field>
+        <input type="number" placeholder="Total Price" matInput formControlName="priceControl" [disabled]="true">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Cumulative Total Price -->
+  <mat-form-field>
+    <input type="number" placeholder="Cumulative Total Price" matInput formControlName="totalPrice" [disabled]="true">
+  </mat-form-field>
+
+  <!-- Add Entry Button -->
+  <button mat-raised-button color="primary" type="button" (click)="addEntry()">Add Entry</button>
+
+  <!-- Submit Button -->
+  <button mat-raised-button color="primary" type="submit" [disabled]="!orderForm.valid">Add Orders</button>
+</form>

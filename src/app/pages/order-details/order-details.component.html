@@ -5,7 +5,7 @@
     <!-- Order ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Order ID </th>
-      <td mat-cell *matCellDef="let order"> {{ order.id }} </td>
+      <td mat-cell *matCellDef="let order"> {{ order.orderId }} </td>
     </ng-container>
 
     <!-- Product Column -->
@@ -38,11 +38,25 @@
       <td mat-cell *matCellDef="let order"> {{ order.priceControl }} </td>
     </ng-container>
 
-    <!-- Header and Row Declarations -->
+    <!-- Edit and Delete Buttons Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let order">
+        <button mat-icon-button color="primary" (click)="editOrder(order)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteOrder(order.orderId)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
 <ng-template #noOrders>
   <div class="no-orders-container">
     <img src="../../../assets/images/no-orders.png" alt="No orders found" class="no-orders-image">
