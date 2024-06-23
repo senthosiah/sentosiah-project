@@ -17,7 +17,7 @@ export class ListComponent {
   items: Array<any>;
   age_filtered_items: Array<any>;
   name_filtered_items: Array<any>;
-
+  filtered_items: any[] = [];
   constructor(
     public firebaseService: FirebaseService,
     public dialogService: MatDialog,
@@ -60,35 +60,47 @@ export class ListComponent {
   capitalizeFirstLetter(value){
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
-
-  searchByName(){
+  searchByNameOrLocation() {
     let value = this.searchValue.toLowerCase();
-    this.firebaseService.searchUsers(value)
-    .subscribe(result => {
-      this.name_filtered_items = result;
-      this.items = this.combineLists(result, this.age_filtered_items);
-    })
-  }
-
-  rangeChange(event){
-    this.firebaseService.searchUsersByAge(event.value)
-    .subscribe(result =>{
-      this.age_filtered_items = result;
-      this.items = this.combineLists(result, this.name_filtered_items);
-    })
-  }
-
-  combineLists(a, b){
-    let result = [];
-
-    a.filter(x => {
-      return b.filter(x2 =>{
-        if(x2.payload.doc.id == x.payload.doc.id){
-          result.push(x2);
-        }
+  
+    // Search by name
+    this.firebaseService.searchUsersByName(value)
+      .subscribe(nameResult => {
+        // Search by location
+        this.firebaseService.searchUsersByLocation(value)
+          .subscribe(locationResult => {
+            // Combine results
+            this.filtered_items = [...nameResult, ...locationResult];
+            this.items = this.combineLists(this.filtered_items);
+          });
       });
+  }
+  
+
+  combineLists(filteredList) {
+    return filteredList.filter((item, index, self) =>
+      index === self.findIndex((t) => (
+        t.payload.doc.id === item.payload.doc.id
+      ))
+    );
+  }
+  
+  // rangeChange(event){
+  //   this.firebaseService.searchUsersByAge(event.value)
+  //   .subscribe(result =>{
+  //     this.age_filtered_items = result;
+  //     this.items = this.combineLists(result, this.name_filtered_items);
+  //   })
+  // }
+
+
+  viewOrderDetails(client: any) {
+    // Navigate to order details component and pass order details
+    this.router.navigate(['/order-details', client.payload.doc.id], {
+      queryParams: {
+        orderDetails: JSON.stringify(client.orderDetails) // Assuming orderDetails is structured appropriately
+      }
     });
-    return result;
   }
 
 }

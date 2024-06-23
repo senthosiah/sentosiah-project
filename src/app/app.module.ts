@@ -15,6 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from './pages/login/login.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { OrderDetailsComponent } from './pages/order-details/order-details.component';
+import { ProductOrderComponent } from './pages/product-order/product-order.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +27,10 @@ import { environment } from 'src/environments/environment';
     HomeComponent,
     AddDialogComponent,
     EditDialogComponent,
+    LoginComponent,
+    SignUpComponent,
+    OrderDetailsComponent,
+    ProductOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,9 +43,15 @@ import { environment } from 'src/environments/environment';
     CdkModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(){
+    console.log('Firebase Config:', environment.firebase);
+
+  }
+ }

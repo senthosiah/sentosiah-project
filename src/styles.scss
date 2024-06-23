@@ -1,3 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html,body {
+    height: 100%;
+    width: 100%;
+}
+@mixin se-custom-scroll-var {
+    overflow-y: auto !important;
+   //  scrollbar-color: #888888 rgba(237, 237, 237, 0.824) !important;
+   //  scrollbar-width: thin;
+    background: #fff;
+    &::-webkit-scrollbar {
+        width: 6px !important;
+        display: block !important;
+        &:hover {
+            width: 8px !important;
+        }
+    }
+  
+    &::-webkit-scrollbar:horizontal {
+        height: 6px !important;
+  
+        &:hover {
+            height: 8px !important;
+        }
+    }
+  
+    &::-webkit-scrollbar-track {
+        background-color: rgba(237, 237, 237, 0.824) !important;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background-color: #888888 !important; //Moving part
+        // outline: 1px solid slategrey !important;
+  
+        &:hover {
+            background-color: #999999 !important;
+        }
+    }
+  
+    &::-webkit-scrollbar-corner {
+        background-color: rgba(237, 237, 237, 0.824) !important;
+    }
+  }
+  .se-custom-scroll {
+    @include se-custom-scroll-var;
+  }
+  .se-height-100 {
+    height: 100%;
+  }
+.se-pointer {
+    cursor: pointer;
+}
+.se-landing {
+    background: url(../src/assets/images/landing-image.png);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.se-app-root {
+    height: calc(100% - 56px);
+}

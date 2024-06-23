@@ -26,12 +26,17 @@ export class FirebaseService {
     return this.db.collection('users').snapshotChanges();
   }
 
-  searchUsers(searchValue){
-    return this.db.collection('users',ref => ref.where('nameToSearch', '>=', searchValue)
+  searchUsersByName(searchValue: string) {
+    return this.db.collection('users', ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))
-      .snapshotChanges()
+      .snapshotChanges();
   }
 
+  searchUsersByLocation(searchValue: string) {
+    return this.db.collection('users', ref => ref.where('locationToSearch', '>=', searchValue)
+      .where('locationToSearch', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges();
+  }
   searchUsersByAge(value){
     return this.db.collection('users',ref => ref.orderBy('age').startAt(value)).snapshotChanges();
   }
@@ -41,8 +46,9 @@ export class FirebaseService {
     return this.db.collection('users').add({
       name: value.name,
       nameToSearch: value.name.toLowerCase(),
+      locationToSearch: value.location.toLowerCase(),
       surname: value.surname,
-      age: parseInt(value.age),
+      location: value.location,
     });
   }
 }

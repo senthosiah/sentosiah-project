@@ -1,0 +1,31 @@
+<form (ngSubmit)="submitOrder()" [formGroup]="orderForm">
+    <!-- Product Selection with MatAutocomplete -->
+    <mat-form-field>
+      <input type="text" placeholder="Product" matInput [matAutocomplete]="auto" formControlName="productControl" required="">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProduct">
+        <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+          {{ product.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  
+    <!-- Customization Section -->
+    <mat-form-field>
+      <input type="text" placeholder="Customization" matInput formControlName="customizationControl" required="">
+    </mat-form-field>
+    <mat-form-field>
+        <input type="number" placeholder="Customization Quantity" matInput formControlName="customizationUnitControl" required="">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number" placeholder="Customization Unit Price" matInput formControlName="customizationUnitPriceControl" required="">
+      </mat-form-field>
+  
+    <!-- Price Calculation -->
+    <mat-form-field>
+      <input type="number" placeholder="Total Price" matInput formControlName="priceControl" [disabled]=true>
+    </mat-form-field>
+  
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="!orderForm.valid">Add Order</button>
+  </form>
+  

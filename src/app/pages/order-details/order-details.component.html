@@ -1,0 +1,50 @@
+<div *ngIf="orderDetails.length > 0; else noOrders" class="container se-height-100">
+  <h2>Your Orders ({{ userName }})</h2>
+  <p>Total Orders: {{ orderCount }}</p>
+  <table mat-table [dataSource]="orderDetails" class="mat-elevation-z8">
+    <!-- Order ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Order ID </th>
+      <td mat-cell *matCellDef="let order"> {{ order.id }} </td>
+    </ng-container>
+
+    <!-- Product Column -->
+    <ng-container matColumnDef="productControl">
+      <th mat-header-cell *matHeaderCellDef> Product </th>
+      <td mat-cell *matCellDef="let order"> {{ order.productControl }} </td>
+    </ng-container>
+
+    <!-- Customization Column -->
+    <ng-container matColumnDef="customizationControl">
+      <th mat-header-cell *matHeaderCellDef> Customization </th>
+      <td mat-cell *matCellDef="let order"> {{ order.customizationControl }} </td>
+    </ng-container>
+
+    <!-- Customization Units Column -->
+    <ng-container matColumnDef="customizationUnitControl">
+      <th mat-header-cell *matHeaderCellDef> Customization Units </th>
+      <td mat-cell *matCellDef="let order"> {{ order.customizationUnitControl }} </td>
+    </ng-container>
+
+    <!-- Customization Unit Price Column -->
+    <ng-container matColumnDef="customizationUnitPriceControl">
+      <th mat-header-cell *matHeaderCellDef> Customization Unit Price </th>
+      <td mat-cell *matCellDef="let order"> {{ order.customizationUnitPriceControl }} </td>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="priceControl">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let order"> {{ order.priceControl }} </td>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<ng-template #noOrders>
+  <div class="no-orders-container">
+    <img src="../../../assets/images/no-orders.png" alt="No orders found" class="no-orders-image">
+  </div>
+</ng-template>

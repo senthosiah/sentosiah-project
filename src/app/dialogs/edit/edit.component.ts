@@ -55,6 +55,7 @@ data;
 
   createForm() {
     this.exampleForm = this.fb.group({
+      id: this.item.id,
       name: [this.item.name, Validators.required],
       surname: [this.item.surname, Validators.required],
       age: [this.item.age, Validators.required]

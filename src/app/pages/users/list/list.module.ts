@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListComponent } from './list.component';
+// import { ListComponent } from './list.component';
 import { FormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    // ListComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
   ],
-  exports: [ListComponent]
+  exports: []
 })
 export class ListModule { }

@@ -1,0 +1,33 @@
+/* order-details.component.scss */
+table {
+    width: 100%;
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4), 0 16px 24px 2px rgba(0, 0, 0, 0.2), 0 6px 30px 5px rgba(0, 0, 0, 0.14);
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+  }
+  
+  .mat-cell, .mat-header-cell {
+    padding: 8px 16px;
+  }
+  .no-orders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .no-orders-image {
+    max-width: 40%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+  }
+  
+  
