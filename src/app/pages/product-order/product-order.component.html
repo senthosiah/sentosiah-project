@@ -1,6 +1,12 @@
 <form (ngSubmit)="submitOrder()" [formGroup]="orderForm" class="container se-height-100 p-lg-4">
   <div formArrayName="entries">
     <div *ngFor="let entryGroup of orderForm.get('entries')['controls']; let i = index" [formGroupName]="i" class="entry-group">
+       <!-- Order Date -->
+ <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Order Date" formControlName="orderDate" required>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
       <!-- Product Selection with MatAutocomplete -->
       <mat-form-field>
         <!-- [matAutocomplete]="auto[i]"  -->
@@ -28,19 +34,19 @@
 
       <!-- Price Calculation -->
       <mat-form-field>
-        <input type="number" placeholder="Total Price" matInput formControlName="priceControl" [disabled]="true">
+        <input type="number" placeholder="Total Price" matInput formControlName="priceControl" [disabled]=true>
       </mat-form-field>
     </div>
   </div>
 
   <!-- Cumulative Total Price -->
   <mat-form-field>
-    <input type="number" placeholder="Cumulative Total Price" matInput formControlName="totalPrice" [disabled]="true">
+    <input type="number" placeholder="Cumulative Total Price" matInput formControlName="totalPrice" [disabled]=true>
   </mat-form-field>
 
   <!-- Add Entry Button -->
-  <button mat-raised-button color="primary" type="button" (click)="addEntry()">Add Entry</button>
+  <button mat-raised-button color="primary" type="button" (click)="addEntry()" *ngIf="!editingOrder">Add Entry</button>
 
   <!-- Submit Button -->
-  <button mat-raised-button color="primary" type="submit" [disabled]="!orderForm.valid">Add Orders</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!orderForm.valid">{{ editingOrder ? 'Update Order' : 'Add Orders' }}</button>
 </form>

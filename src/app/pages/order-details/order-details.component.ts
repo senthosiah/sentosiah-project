@@ -17,6 +17,7 @@ export class OrderDetailsComponent implements OnInit {
   id = null;
   displayedColumns: string[] = [
     'id', 
+    'orderDate',
     'productControl', 
     'customizationControl', 
     'customizationUnitControl', 
@@ -77,8 +78,8 @@ export class OrderDetailsComponent implements OnInit {
         });
     }
   }
-  editOrder(orderId: string): void {
-    this.router.navigate(['/product-order', this.id, orderId]);
+  editOrder(order): void {
+    this.router.navigate(['/product-order', this.id],{ queryParams: { order: JSON.stringify(order) } });
   }
   
 

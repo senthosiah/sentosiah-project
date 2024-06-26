@@ -21,8 +21,8 @@ export class EditDialogComponent {
    'surname': [
      { type: 'required', message: 'Surname is required.' }
    ],
-   'age': [
-     { type: 'required', message: 'Age is required.' },
+   'location': [
+     { type: 'required', message: 'Location is required.' },
    ]
  };
 data;
@@ -41,7 +41,7 @@ data;
     this.exampleForm = this.fb.group({
       name:  new FormControl(),
       surname:  new FormControl(),
-      age:  new FormControl()
+      location:  new FormControl()
     });
     this.firebaseService.getUser(this.data.recId)
     .subscribe(
@@ -58,13 +58,12 @@ data;
       id: this.item.id,
       name: [this.item.name, Validators.required],
       surname: [this.item.surname, Validators.required],
-      age: [this.item.age, Validators.required]
+      location: [this.item.location, Validators.required]
     });
   }
 
 
   onSubmit(value){
-    value.age = Number(value.age);
     this.firebaseService.updateUser(this.item.id, value)
     .then(
       res => {

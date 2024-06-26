@@ -49,9 +49,4 @@ import { ProductOrderComponent } from './pages/product-order/product-order.compo
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(){
-    console.log('Firebase Config:', environment.firebase);
-
-  }
- }
+export class AppModule {}
